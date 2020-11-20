@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+  
+   <div class="row">
+     <div class="row cols12 center" >Aplicacion de Mobiles</div>
+    <div class="col s12">
+      <ul class="tabs">
+
+        <li class="tab col s4"><a href="#test1">Indicadores</a></li>
+        <li class="tab col s4"><a href="#test2">Direcciones IP</a></li>
+        <li class="tab col s4 "><a class="active"  href="#test3">Clientes</a></li>
+       
+      </ul>
+    </div>
+    <div id="test1" class="col s12">
+      <div class="row">
+        <div class="col s12 ">
+          <div class="card-panel col s6">
+            <span class="white-text"> <select>
+              <option value="" disabled selected>Choose your option</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+            </div>
+            </span>
+          </div>
+          <div class="col s4 ">
+            <div class="card-panel teal">
+              <span class="white-text">I am a very simple card. I am good at containing small bits of information.
+              I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
+              </span>
+            </div>
+          </div>
+          <div class="col s4 ">
+            <div class="card-panel teal">
+              <span class="white-text">I am a very simple card. I am good at containing small bits of information.
+              I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
+              </span>
+            </div>
+          </div>
+          <div class="col s4 ">
+            <div class="card-panel teal">
+              <span class="white-text">I am a very simple card. I am good at containing small bits of information.
+              I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
+              </span>
+            </div>
+          </div>
+          <div class="col s12 ">
+            <div class="card-panel teal">
+              <span class="white-text">I am a very simple card. I am good at containing small bits of information.
+              I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
+              </span>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div id="test2" class="col s12">
+    <div class="col s6">
+            
+        <table>
+            <input v-model="id_busqueda" placeholder="Ingrese Id Factura" type="text" class="col s4" >
+            <button v-on:click="buscarFactura()" class="btn" ><i class="material-icons">find_in_page</i> BUSCAR FACTURA POR ID</button>
+            <button v-on:click="listarFacturas()" class="btn red">Ver Facturas</button>                
+            <tr>
+                <th>Id Factura</th>
+                <th>Nombre Producto</th>               
+                <th>Acción</th>
+            </tr>
+            <tr v-for="factura of lista_facturas">
+                <td>{{ factura.id_factura }}</td>
+                <td>{{ factura.nombre_producto }}</td>
+                <td> 
+                   <a class="btn-floating btn-small waves-effect waves-light red" v-on:click="eliminarFactura(factura.id_factura)"><i class="material-icons">delete</i></a>
+                   <a class="btn-floating btn-small waves-effect waves-light blue" v-on:click="editarFactura(factura.id_factura,factura.nombre_producto,factura.nombre_cliente,factura.cantidad,factura.subtotal,factura.forma_pago)"><i class="material-icons">mode_edit</i></a>
+                </td> 
+            
+                </td>                 
+
+            </tr>     
+        </table>    
+    </div>
+    <div class="col s6">
+        <div class="row">
+                <div class="input-field col s6">
+                    <input v-model="hostname" type="text" placeholder="Ingrese Hostname">
+                    <label>Hostname</label>
+                </div>
+                <div class="input-field col s6">
+                    <input v-model="dir_ip" type="text" placeholder="Ingrese Direción IP">
+                    <label> Direcciones IP</label>
+                </div>
+                <div class="input-field col s6">
+                  <input v-model="fecha_carga" type="text" placeholder="Ingrese Fecha de Carga">
+                  <label>Fecha de Carga</label>
+              </div>
+              <div class="input-field col s6">
+                  <input v-model="cliente" type="text" placeholder="Ingrese Cliente">
+                  <label> Cliente</label>
+              </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+              <select>
+                <option value="" disabled selected>Elegir Opción</option>
+                <option value="1">Clientes</option>
+                <option value="2">Equipos</option>
+               
+              </select>
+            </div>
+            
+
+        </div>
+        
+        <div>
+            <div class="row">
+                <div class="col s12">
+                    <button v-on:click="guardarFactura()" class="btn">Guardar Factura</button>
+                    <button v-on:click="actualizarFactura()" class="btn orange" >Actualizar Factura</button>                      
+                </div>
+                
+                
+            </div>  
+        </div>
+
+    </div>
+    </div>
+    <div id="test3" class="col s12">
+      <div class="col s6">
+            
+        <table>
+            <input v-model="id_busqueda" placeholder="Ingrese Id Factura" type="text" class="col s4" >
+            <button v-on:click="buscarFactura()" class="btn" ><i class="material-icons">find_in_page</i> BUSCAR CLIENTE POR ID</button>
+            <button v-on:click="listarFacturas()" class="btn red">VER CLIENTE</button>                
+            <tr>
+                <th>Id Factura</th>
+                <th>Nombre Producto</th>               
+                <th>Acción</th>
+            </tr>
+            <tr v-for="factura of lista_facturas">
+                <td>{{ factura.id_factura }}</td>
+                <td>{{ factura.nombre_producto }}</td>
+                <td> 
+                   <a class="btn-floating btn-small waves-effect waves-light red" v-on:click="eliminarFactura(factura.id_factura)"><i class="material-icons">delete</i></a>
+                   <a class="btn-floating btn-small waves-effect waves-light blue" v-on:click="editarFactura(factura.id_factura,factura.nombre_producto,factura.nombre_cliente,factura.cantidad,factura.subtotal,factura.forma_pago)"><i class="material-icons">mode_edit</i></a>
+                </td> 
+            
+                </td>                 
+
+            </tr>     
+        </table>    
+    </div>
+    <div class="col s6">
+        <div class="row">
+                <div class="input-field col s12">
+                    <input v-model="razon_social" type="text" placeholder="Ingrese Razon social">
+                    <label>RAZON SOCIAL</label>
+                </div>
+                <div class="input-field col s6">
+                    <input v-model="nombre" type="text" placeholder="Ingrese NOMBRE">
+                    <label> NOMBRE</label>
+                </div>
+                <div class="input-field col s6">
+                  <input v-model="apellido" type="text" placeholder="Ingrese APELLIDO">
+                  <label>APELLIDO</label>
+              </div>
+              <div class="input-field col s12">
+                <input v-model="telefono" type="text" placeholder="Ingrese TELEFONO">
+                <label> TELEFONO</label>
+            </div>
+              <div class="input-field col s12">
+                <input v-model="correo_electronico" type="text" placeholder="Ingrese E-MAIL">
+                <label> E-MAIL</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+              <select>
+                <option value="" disabled selected>Elegir Opción</option>
+                <option value="1">Clientes</option>
+                <option value="2">Equipos</option>
+               
+              </select>
+            </div>
+            
+
+        </div>
+        
+        <div>
+            <div class="row">
+                <div class="col s12">
+                    <button v-on:click="guardarCliente()" class="btn">Guardar Cliente</button>
+                    <button v-on:click="actualizarCliente()" class="btn orange" >Actualizar Cliente</button>                      
+                </div>
+                
+                
+            </div>  
+        </div>
+
+    </div>
+    </div>
+    </div>
+    
+  </div>
+
+
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="index.js"></script>
+    <script>
+      M.AutoInit();
+    </script>
+    
+</body>
+        
+
+
+</html>
